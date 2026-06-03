@@ -3,10 +3,14 @@ const express = require("express");
 const router = express.Router();
 
 const Topic = require("../models/topic.model");
-const { getAllTopics, getSingleTopic, createTopic, replaceTopic, updateTopic, deleteTopic } = require("../controllers/topic.controller");
+const { getAllTopics, getSingleTopic, createTopic, replaceTopic, updateTopic, deleteTopic, getTopicByName, getTopicsByCategory } = require("../controllers/topic.controller");
 
 
 router.get("/", getAllTopics);
+
+router.get("/name/:name", getTopicByName);
+
+router.get("/category/:category", getTopicsByCategory);
 
 
 router.get("/:topicName", getSingleTopic);

@@ -1,12 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const Solution = require("../models/solution.model");
-const { getAllSolutions, getSingleSolution, createSolution, replaceSolution, updateSolution, deleteSolution } = require("../controllers/solution.controller");
+const { getAllSolutions, getSingleSolution, createSolution, replaceSolution, updateSolution, deleteSolution, getSolutionsByTopic, getSolutionsByDifficulty, getSolutionsBySource, searchSolutions, getRecentSolutions } = require("../controllers/solution.controller");
 
 
 //GET ALL PROBLEMS
 router.get("/", getAllSolutions);
 
+router.get("/search", searchSolutions);
+
+router.get("/recent", getRecentSolutions);
+
+router.get("/topic/:topic", getSolutionsByTopic);
+
+router.get("/difficulty/:difficulty", getSolutionsByDifficulty);
+
+router.get("/source/:source", getSolutionsBySource);
+
+router.get("/:solutionId", getSingleSolution);
 
 //GET SINGLE SOLUTION 
 router.get("/:solutionId", getSingleSolution)
