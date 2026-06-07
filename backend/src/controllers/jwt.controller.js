@@ -85,11 +85,34 @@ const jwtProfile = asyncHandler(async (req, res) => {
 });
 
 
+const adminRoute = asyncHandler(async (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Admin access granted",
+  });
+});
+
+const userRoute = asyncHandler(async (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "User access granted",
+  });
+});
+
+const checkAdminRole = asyncHandler(async (req, res) => {
+  res.status(200).json({
+    success: true,
+    isAdmin: req.user.role === "admin",
+  });
+});
 
 module.exports = {
   verifyToken,
   generateToken,
   refreshToken,
   jwtProfile,
+    adminRoute,
+    userRoute,
+    checkAdminRole,
  
 };
