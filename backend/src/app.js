@@ -7,7 +7,7 @@ const topicRoutes = require("./routes/topic.routes");
 const solutionRoutes = require("./routes/solution.routes");
 const datasetRoutes = require("./routes/dataset.routes");
 const errorMiddleware = require("./middleware/error.middleware")
-
+const statsRoutes = require("./routes/stats.routes");
 
 const app = express();
 
@@ -18,7 +18,9 @@ app.use("/problems", problemRoutes);
 app.use("/topics", topicRoutes);
 app.use("/solutions", solutionRoutes);
 app.use("/datasets", datasetRoutes);
+app.use("/stats", statsRoutes);
 app.use(errorMiddleware);
+
 
 mongoose
     .connect(process.env.MONGO_URI)
