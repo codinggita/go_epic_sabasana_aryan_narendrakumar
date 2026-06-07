@@ -10,6 +10,8 @@ const errorMiddleware = require("./middleware/error.middleware");
 const statsRoutes = require("./routes/stats.routes");
 const authRoutes = require("./routes/auth.routes");
 const jwtRoutes = require("./routes/jwt.routes");
+const adminRoutes = require("./routes/admin.routes");
+const protectedRoutes = require("./routes/protected.routes");
 const app = express();
 
 app.use(cors());
@@ -22,6 +24,8 @@ app.use("/datasets", datasetRoutes);
 app.use("/stats", statsRoutes);
 app.use("/auth", authRoutes);
 app.use("/jwt", jwtRoutes);
+app.use("/admin", adminRoutes);
+app.use("/protected", protectedRoutes);
 app.use(errorMiddleware);
 
 mongoose
