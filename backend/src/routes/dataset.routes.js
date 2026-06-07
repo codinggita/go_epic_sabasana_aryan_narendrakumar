@@ -3,12 +3,22 @@ const express = require("express");
 const router = express.Router();
 
 const Dataset = require("../models/dataset.model");
-const { getAllDatasets, getSingleDataset, createDataset, replaceDataset, updateDataset, deleteDataset } = require("../controllers/dataset.controller");
+const { getAllDatasets, getSingleDataset, createDataset, replaceDataset, updateDataset, deleteDataset, searchDatasets ,getLatestDatasets,   getDatasetsBySource, getDatasetsByTopic, getDatasetsByDifficulty  } = require("../controllers/dataset.controller");
 
 
 
 // GET ALL DATASETS
 router.get("/", getAllDatasets);
+
+router.get("/search", searchDatasets);
+
+router.get("/latest", getLatestDatasets);
+
+router.get("/source/:source", getDatasetsBySource);
+
+router.get("/topic/:topic", getDatasetsByTopic);
+
+router.get("/difficulty/:difficulty", getDatasetsByDifficulty);
 
 
 // GET SINGLE DATASET
