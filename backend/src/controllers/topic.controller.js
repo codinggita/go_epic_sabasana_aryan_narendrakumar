@@ -161,6 +161,44 @@ const deleteTopic = asyncHandler(async (req, res) => {
   });
 });
 
+const searchTopics = asyncHandler(async (req, res) => {
+  const q = req.query.q;
+
+  if (!q?.trim()) {
+    throw new ApiError(400, "Search query is required");
+  }
+
+  const topics = await Topic.find({
+    $or: [
+      {
+        name: {
+          $regex: q,
+          $options: "i",
+        },
+      },
+      {
+        category: {
+          $regex: q,
+          $options: "i",
+        },
+      },
+      {
+        description: {
+          $regex: q,
+          $options: "i",
+        },
+      },
+    ],
+  });
+
+  res.status(200).json({
+    success: true,
+    query: q,
+    count: topics.length,
+    data: topics,
+  });
+});
+
 module.exports = {
   getAllTopics,
   getSingleTopic,
@@ -170,4 +208,5 @@ module.exports = {
   deleteTopic,
   getTopicByName,
   getTopicsByCategory,
+  searchTopics,
 };

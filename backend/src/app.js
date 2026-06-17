@@ -13,6 +13,7 @@ const jwtRoutes = require("./routes/jwt.routes");
 const adminRoutes = require("./routes/admin.routes");
 const protectedRoutes = require("./routes/protected.routes");
 const systemRoutes = require("./routes/system.routes");
+const searchRoutes = require("./routes/search.routes");
 const errorMiddleware = require("./middleware/error.middleware");
 
 const app = express();
@@ -30,6 +31,7 @@ app.use("/auth", authRoutes);
 app.use("/jwt", jwtRoutes);
 app.use("/admin", adminRoutes);
 app.use("/protected", protectedRoutes);
+app.use("/search", searchRoutes);
 app.use("/", systemRoutes);
 app.use(errorMiddleware);
 
