@@ -12,7 +12,15 @@ const {
   getAdminTopics,
   getAdminSolutions,
   getAdminDatasets,
+  getAdminDashboard,
 } = require("../controllers/admin.controller");
+
+router.get(
+  "/dashboard",
+  verifyJWT,
+  verifyAdmin,
+  getAdminDashboard
+);
 
 router.get(
   "/problems",

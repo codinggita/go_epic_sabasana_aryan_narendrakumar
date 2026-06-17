@@ -297,6 +297,98 @@ const getAdvancedProblems = asyncHandler(async (req, res) => {
   });
 });
 
+const importProblems = asyncHandler(async (req, res) => {
+  let problemsArray = req.body;
+  if (!Array.isArray(problemsArray) && req.body && Array.isArray(req.body.problems)) {
+    problemsArray = req.body.problems;
+  }
+
+  if (!Array.isArray(problemsArray) || problemsArray.length === 0) {
+    throw new ApiError(400, "Please provide an array of problems to import");
+  }
+
+  const count = await Problem.countDocuments();
+  const existingProblems = await Problem.find({}, { title: 1 });
+  const existingTitles = new Set(existingProblems.map(p => p.title.toLowerCase()));
+
+  const problemsToInsert = [];
+  const errors = [];
+
+  for (let i = 0; i < problemsArray.length; i++) {
+    const item = problemsArray[i];
+    const instruction = item.instruction || item.description;
+    const topic = item.topic || item.category;
+    let difficulty = item.difficulty;
+
+    if (!instruction) {
+      errors.push({ index: i, error: "Instruction or description is required" });
+      continue;
+    }
+    if (!topic) {
+      errors.push({ index: i, error: "Topic or category is required" });
+      continue;
+    }
+
+    // Normalize difficulty
+    if (difficulty) {
+      difficulty = difficulty.toLowerCase();
+      if (difficulty === "beginner" || difficulty === "easy") {
+        difficulty = "easy";
+      } else if (difficulty === "intermediate" || difficulty === "medium") {
+        difficulty = "medium";
+      } else if (difficulty === "hard" || difficulty === "advanced" || difficulty === "difficult") {
+        difficulty = "advanced";
+      } else {
+        difficulty = "medium";
+      }
+    } else {
+      difficulty = "medium";
+    }
+
+    // Handle title
+    let title = item.title;
+    if (!title) {
+      const cleanText = instruction.replace(/[^\w\s-]/g, '').trim();
+      const words = cleanText.split(/\s+/).slice(0, 5).join(" ");
+      title = words ? words : `Problem ${count + i + 1}`;
+    }
+
+    // Ensure title uniqueness
+    let uniqueTitle = title;
+    let suffix = 1;
+    while (
+      existingTitles.has(uniqueTitle.toLowerCase()) ||
+      problemsToInsert.some(p => p.title.toLowerCase() === uniqueTitle.toLowerCase())
+    ) {
+      uniqueTitle = `${title} (${suffix})`;
+      suffix++;
+    }
+
+    problemsToInsert.push({
+      title: uniqueTitle,
+      instruction: instruction.trim(),
+      topic: topic.trim(),
+      difficulty,
+      views: 0
+    });
+  }
+
+  if (problemsToInsert.length === 0) {
+    throw new ApiError(400, "No valid problems found to import", errors);
+  }
+
+  const importedProblems = await Problem.insertMany(problemsToInsert);
+
+  res.status(201).json({
+    success: true,
+    message: `Successfully imported ${importedProblems.length} problems`,
+    count: importedProblems.length,
+    failedCount: errors.length,
+    errors: errors.length > 0 ? errors : undefined,
+    data: importedProblems
+  });
+});
+
 module.exports = {
   getAllProblems,
   getSingleProblem,
@@ -313,4 +405,5 @@ module.exports = {
   getTrendingProblems,
   getRecentProblems,
   getAdvancedProblems,
+  importProblems,
 };

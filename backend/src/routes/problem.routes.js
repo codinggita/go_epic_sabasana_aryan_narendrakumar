@@ -18,6 +18,7 @@ const {
   getTrendingProblems,
   getRecentProblems,
   getAdvancedProblems,
+  importProblems,
 } = require("../controllers/problem.controller");
 
 const validateProblem = require("../middleware/validateProblem.middleware");
@@ -50,6 +51,8 @@ router.get("/recent", getRecentProblems);
 router.get("/advanced", getAdvancedProblems);
 
 router.get("/:problemId", getSingleProblem);
+
+router.post("/import-json", bulkUploadLimiter, importProblems);
 
 router.post("/", createProblemLimiter, validateProblem, createProblem);
 
