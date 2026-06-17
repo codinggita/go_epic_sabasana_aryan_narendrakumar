@@ -1,0 +1,227 @@
+/* Home Dashboard Page Styles */
+
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+.dashboard-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.dashboard-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* Stats Cards Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.stat-icon.problems {
+  background: rgba(190, 24, 74, 0.1);
+  color: hsl(343, 90%, 55%);
+}
+
+.stat-icon.topics {
+  background: rgba(14, 116, 144, 0.1);
+  color: hsl(190, 90%, 50%);
+}
+
+.stat-icon.solutions {
+  background: rgba(16, 185, 129, 0.1);
+  color: hsl(145, 80%, 45%);
+}
+
+.stat-icon.datasets {
+  background: rgba(217, 119, 6, 0.1);
+  color: hsl(38, 95%, 55%);
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Dashboard Sections */
+.dashboard-sections {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+}
+
+@media (max-width: 992px) {
+  .dashboard-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section-card {
+  height: 100%;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.section-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+/* Trending Problems List */
+.trending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.trending-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(16, 18, 27, 0.25);
+  border: 1px solid hsla(215, 15%, 70%, 0.04);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.trending-item:hover {
+  background: rgba(16, 18, 27, 0.5);
+  border-color: hsla(190, 90%, 50%, 0.2);
+  transform: translateX(4px);
+}
+
+.trending-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trending-item-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.trending-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.tag-difficulty {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tag-difficulty.easy {
+  background: var(--color-easy-glow);
+  color: var(--color-easy);
+}
+
+.tag-difficulty.medium {
+  background: var(--color-medium-glow);
+  color: var(--color-medium);
+}
+
+.tag-difficulty.advanced {
+  background: var(--color-advanced-glow);
+  color: var(--color-advanced);
+}
+
+.trending-item-views {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Popular Topics Grid */
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topic-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: rgba(16, 18, 27, 0.25);
+  border: 1px solid hsla(215, 15%, 70%, 0.04);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.topic-item-card:hover {
+  background: var(--grad-brand-glow);
+  border-color: hsla(263, 85%, 64%, 0.25);
+  transform: translateY(-2px);
+}
+
+.topic-item-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.topic-item-views {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
