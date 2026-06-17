@@ -13,6 +13,10 @@ const {
   getAdminSolutions,
   getAdminDatasets,
   getAdminDashboard,
+  getAdminUsers,
+  createAdminUser,
+  updateAdminUser,
+  deleteAdminUser,
 } = require("../controllers/admin.controller");
 
 router.get(
@@ -48,6 +52,35 @@ router.get(
   verifyJWT,
   verifyAdmin,
   getAdminDatasets
+);
+
+// User CRUD routes
+router.get(
+  "/users",
+  verifyJWT,
+  verifyAdmin,
+  getAdminUsers
+);
+
+router.post(
+  "/users",
+  verifyJWT,
+  verifyAdmin,
+  createAdminUser
+);
+
+router.put(
+  "/users/:userId",
+  verifyJWT,
+  verifyAdmin,
+  updateAdminUser
+);
+
+router.delete(
+  "/users/:userId",
+  verifyJWT,
+  verifyAdmin,
+  deleteAdminUser
 );
 
 module.exports = router;

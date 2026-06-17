@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useAuth } from '../hooks/useAuth';
+import { toggleTheme } from '../store/slices/uiSlice';
 import { 
   FiHome, 
   FiCode, 
@@ -9,7 +11,9 @@ import {
   FiUser, 
   FiSliders, 
   FiLogOut, 
-  FiSearch 
+  FiSearch,
+  FiSun,
+  FiMoon
 } from 'react-icons/fi';
 import '../styles/Layout.css';
 
@@ -17,6 +21,8 @@ const Layout = ({ children }) => {
   const { user, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const mode = useSelector((state) => state.ui.theme);
   const [searchVal, setSearchVal] = useState('');
 
   const handleSearchSubmit = (e) => {
@@ -92,7 +98,30 @@ const Layout = ({ children }) => {
             />
           </form>
 
-          <div className="navbar-actions">
+          <div className="navbar-actions" style={{ display: 'flex', alignItems: 'center' }}>
+            {/* Theme Toggle Button */}
+            <button 
+              type="button"
+              onClick={() => dispatch(toggleTheme())}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--text-primary)',
+                cursor: 'pointer',
+                fontSize: '1.25rem',
+                marginRight: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '6px',
+                borderRadius: '50%',
+                transition: 'background 0.2s'
+              }}
+              className="hover:bg-brand-lightBorder dark:hover:bg-brand-darkBorder"
+              title={mode === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            >
+              {mode === 'light' ? <FiMoon /> : <FiSun />}
+            </button>
+
             {user ? (
               <div className="user-profile-widget" onClick={() => navigate('/profile')}>
                 <div className="user-avatar">

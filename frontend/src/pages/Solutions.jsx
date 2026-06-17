@@ -110,7 +110,7 @@ const Solutions = () => {
 
         {/* Filters Bar */}
         <div className="filters-bar">
-          <div className="filters-left">
+          <div className="filters-left" style={{ flexWrap: 'wrap' }}>
             <form className="filter-input-wrapper" onSubmit={handleSearchSubmit}>
               <FiSearch className="filter-search-icon" />
               <input
@@ -123,6 +123,7 @@ const Solutions = () => {
 
             <select
               className="filter-select"
+              style={{ flex: '1 1 min(100%, 200px)' }}
               value={difficultyParam}
               onChange={(e) => updateFilters({ difficulty: e.target.value })}
             >
@@ -134,6 +135,7 @@ const Solutions = () => {
 
             <select
               className="filter-select"
+              style={{ flex: '1 1 min(100%, 200px)' }}
               value={topicParam}
               onChange={(e) => updateFilters({ topic: e.target.value })}
             >

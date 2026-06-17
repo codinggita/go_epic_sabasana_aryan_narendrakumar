@@ -6,6 +6,15 @@ import { FiDatabase, FiSearch, FiArrowRight, FiFileText, FiLayers } from 'react-
 import '../styles/Problems.css';
 import '../styles/Datasets.css';
 
+const normalizeDifficulty = (d) => {
+  if (!d) return 'medium';
+  const v = d.toLowerCase();
+  if (v === 'easy' || v === 'beginner') return 'easy';
+  if (v === 'medium' || v === 'intermediate') return 'medium';
+  if (v === 'advanced' || v === 'hard' || v === 'difficult') return 'advanced';
+  return 'medium';
+};
+
 const Datasets = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -137,7 +146,7 @@ const Datasets = () => {
 
         {/* Filters Bar */}
         <div className="filters-bar">
-          <div className="filters-left">
+          <div className="filters-left" style={{ flexWrap: 'wrap' }}>
             <form className="filter-input-wrapper" onSubmit={handleSearchSubmit}>
               <FiSearch className="filter-search-icon" />
               <input
@@ -150,17 +159,21 @@ const Datasets = () => {
 
             <select
               className="filter-select"
+              style={{ flex: '1 1 min(100%, 200px)' }}
               value={difficultyParam}
               onChange={(e) => updateFilters({ difficulty: e.target.value })}
             >
               <option value="">All Difficulties</option>
               <option value="easy">Easy</option>
+              <option value="beginner">Beginner</option>
               <option value="medium">Medium</option>
+              <option value="intermediate">Intermediate</option>
               <option value="advanced">Advanced</option>
             </select>
 
             <select
               className="filter-select"
+              style={{ flex: '1 1 min(100%, 200px)' }}
               value={topicParam}
               onChange={(e) => updateFilters({ topic: e.target.value })}
             >
@@ -198,7 +211,7 @@ const Datasets = () => {
           </div>
         ) : (
           <>
-            <div className="datasets-grid">
+            <div className="datasets-grid responsive-grid">
               {datasets.length > 0 ? datasets.map((dataset) => (
                 <div
                   key={dataset._id}
@@ -209,11 +222,11 @@ const Datasets = () => {
                     <div>
                       <span className="dataset-source-badge">
                         <FiDatabase style={{ fontSize: '0.75rem' }} />
-                        {dataset.source}
+                        {dataset.source || 'Unknown Source'}
                       </span>
                     </div>
-                    <span className={`tag-difficulty ${dataset.difficulty}`}>
-                      {dataset.difficulty}
+                    <span className={`tag-difficulty ${normalizeDifficulty(dataset.difficulty)}`}>
+                      {normalizeDifficulty(dataset.difficulty)}
                     </span>
                   </div>
 

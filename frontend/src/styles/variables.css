@@ -1,66 +1,118 @@
-/* GoEpic Modern Premium Design Tokens */
+/* GoEpic Hardcore Premium Palette Design Tokens */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  /* Color Palette (HSL Tailored) */
-  --bg-deep: hsl(233, 30%, 5%);
-  --bg-dark: hsl(233, 24%, 8%);
-  --bg-card: hsla(233, 24%, 12%, 0.5);
-  --bg-card-hover: hsla(233, 24%, 16%, 0.75);
-  --bg-input: hsl(233, 20%, 10%);
-  --bg-input-hover: hsl(233, 20%, 13%);
+  /* Color Palette (Light Mode - Premium Alabaster Glass) */
+  --bg-deep: #F8FAFC;
+  --bg-dark: #F1F5F9;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --bg-input: #FFFFFF;
+  --bg-input-hover: #F8FAFC;
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-color-active: #6366F1;
   
-  /* Brand Colors & Accent Gradients */
-  --color-primary: hsl(263, 85%, 64%);
-  --color-primary-glow: hsla(263, 85%, 64%, 0.15);
-  --color-secondary: hsl(190, 90%, 50%);
-  --color-secondary-glow: hsla(190, 90%, 50%, 0.15);
+  /* Brand Colors */
+  --color-primary: #6366F1;         /* Indigo */
+  --color-primary-glow: rgba(99, 102, 241, 0.1);
+  --color-secondary: #EC4899;       /* Pink */
+  --color-secondary-glow: rgba(236, 72, 153, 0.1);
+  --color-accent: #F59E0B;          /* Amber */
+  --color-admin: #D97706;           /* Admin Amber */
+  --color-admin-glow: rgba(217, 119, 6, 0.1);
   
-  --grad-brand: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-  --grad-brand-glow: linear-gradient(135deg, hsla(263, 85%, 64%, 0.2) 0%, hsla(190, 90%, 50%, 0.2) 100%);
-  --grad-dark: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-dark) 100%);
-  --grad-border: linear-gradient(135deg, hsla(263, 85%, 64%, 0.3) 0%, hsla(190, 90%, 50%, 0.1) 100%);
+  --grad-brand: linear-gradient(135deg, #6366F1 0%, #A855F7 50%, #EC4899 100%);
+  --grad-admin: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+  --grad-dark: radial-gradient(circle at 50% 0%, #F8FAFC 0%, #E2E8F0 100%);
+  --grad-brand-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(236, 72, 153, 0.08));
   
   /* Status Colors */
-  --color-easy: hsl(145, 80%, 45%);
-  --color-easy-glow: hsla(145, 80%, 45%, 0.1);
-  --color-medium: hsl(38, 95%, 55%);
-  --color-medium-glow: hsla(38, 95%, 55%, 0.1);
-  --color-advanced: hsl(343, 90%, 55%);
-  --color-advanced-glow: hsla(343, 90%, 55%, 0.1);
+  --color-easy: #10B981;
+  --color-easy-glow: rgba(16, 185, 129, 0.1);
+  --color-medium: #F59E0B;
+  --color-medium-glow: rgba(245, 158, 11, 0.1);
+  --color-advanced: #EF4444;
+  --color-advanced-glow: rgba(239, 68, 68, 0.1);
   
   /* Text Colors */
-  --text-primary: hsl(210, 20%, 98%);
-  --text-secondary: hsl(215, 16%, 74%);
-  --text-muted: hsl(215, 12%, 50%);
-  --text-glow: 0 0 10px hsla(210, 20%, 98%, 0.2);
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
   
   /* Borders and Radii */
-  --border-glow: 1px solid hsla(215, 15%, 70%, 0.08);
-  --border-glow-active: 1px solid hsla(263, 85%, 64%, 0.4);
+  --border-glow: 1px solid var(--border-color);
+  --border-glow-active: 1px solid var(--color-primary);
+  --border-admin-active: 1px solid var(--color-admin);
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 30px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   
   /* Shadow & Glass Effects */
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
   --glass-blur: blur(12px);
-  --shadow-glow: 0 0 20px var(--color-primary-glow);
+  --shadow-glow: 0 4px 20px 0 rgba(99, 102, 241, 0.15);
   
   /* Transitions */
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   
   /* Fonts */
-  --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
   --font-title: 'Outfit', var(--font-primary);
   --font-code: 'Fira Code', monospace;
 }
 
-/* Base Micro-Animations */
+html.dark {
+  /* Color Palette (Dark Mode - Hardcore Cyberpunk Space) */
+  --bg-deep: #07080B;
+  --bg-dark: #0D0E12;
+  --bg-card: rgba(18, 20, 29, 0.6);
+  --bg-card-hover: rgba(28, 30, 43, 0.85);
+  --bg-input: rgba(10, 11, 16, 0.7);
+  --bg-input-hover: rgba(16, 18, 27, 0.9);
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-color-active: #818CF8;
+  
+  /* Brand Colors */
+  --color-primary: #818CF8;         /* Glowing Indigo */
+  --color-primary-glow: rgba(129, 140, 248, 0.15);
+  --color-secondary: #F43F5E;       /* Glowing Coral/Pink */
+  --color-secondary-glow: rgba(244, 63, 94, 0.15);
+  --color-accent: #FBBF24;          /* Cyber Yellow */
+  --color-admin: #F59E0B;
+  --color-admin-glow: rgba(245, 158, 11, 0.2);
+  
+  --grad-brand: linear-gradient(135deg, #6366F1 0%, #A855F7 50%, #EC4899 100%);
+  --grad-admin: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%);
+  --grad-dark: radial-gradient(circle at 50% 0%, #151824 0%, #07080B 100%);
+  --grad-brand-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.15));
+  
+  /* Status Colors */
+  --color-easy: #34D399;
+  --color-easy-glow: rgba(52, 211, 153, 0.15);
+  --color-medium: #FBBF24;
+  --color-medium-glow: rgba(251, 191, 36, 0.15);
+  --color-advanced: #F87171;
+  --color-advanced-glow: rgba(248, 113, 113, 0.15);
+  
+  /* Text Colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  
+  /* Shadow & Glass Effects */
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  --glass-blur: blur(20px);
+  --shadow-glow: 0 4px 24px 0 rgba(99, 102, 241, 0.25);
+  --border-glow: 1px solid var(--border-color);
+  --border-glow-active: 1px solid var(--border-color-active);
+  --border-admin-active: 1px solid var(--color-admin);
+}
+
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -69,7 +121,7 @@
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -78,11 +130,14 @@
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 15px var(--color-primary-glow);
+  0% {
+    box-shadow: 0 0 5px rgba(99, 102, 241, 0.2), inset 0 0 5px rgba(99, 102, 241, 0.1);
   }
   50% {
-    box-shadow: 0 0 25px hsla(263, 85%, 64%, 0.3);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4), inset 0 0 10px rgba(99, 102, 241, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(99, 102, 241, 0.2), inset 0 0 5px rgba(99, 102, 241, 0.1);
   }
 }
 
@@ -92,14 +147,22 @@
   }
 }
 
+@keyframes floatBackground {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
 .animate-fade-in {
   animation: fadeIn var(--transition-normal) forwards;
 }
 
 .animate-slide-up {
   animation: slideUp var(--transition-normal) forwards;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 3s infinite ease-in-out;
 }

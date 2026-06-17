@@ -5,6 +5,20 @@ import api from '../services/api';
 import { FiPlay, FiCheck, FiFolder, FiCode, FiArrowLeft, FiAlertCircle } from 'react-icons/fi';
 import '../styles/ProblemDetail.css';
 
+const normalizeDiff = (d) => {
+  if (!d) return 'medium';
+  const v = d.toLowerCase();
+  if (v === 'easy' || v === 'beginner') return 'easy';
+  if (v === 'medium' || v === 'intermediate') return 'medium';
+  if (v === 'advanced' || v === 'hard' || v === 'difficult') return 'advanced';
+  return 'medium';
+};
+
+const getProblemTitle = (prob) => {
+  const instr = prob?.instruction || '';
+  return instr.length > 80 ? instr.substring(0, 80) + '...' : instr || 'GoEpic Challenge';
+};
+
 const ProblemDetail = () => {
   const { problemId } = useParams();
   const navigate = useNavigate();
@@ -33,7 +47,7 @@ const ProblemDetail = () => {
         setProblem(prob);
 
         // Load custom boiler code
-        const defaultCode = `package main\n\nimport (\n\t"fmt"\n)\n\n// Challenge: ${prob?.title || 'GoEpic Concurrency Task'}\n// Topic: ${prob?.topic || ''}\n\nfunc main() {\n\t// Write your Go concurrency logic here\n\tfmt.Println("Running GoEpic challenge...")\n}\n`;
+        const defaultCode = `package main\n\nimport (\n\t"fmt"\n)\n\n// Challenge: ${getProblemTitle(prob)}\n// Topic: ${prob?.topic || ''}\n\nfunc main() {\n\t// Write your Go concurrency logic here\n\tfmt.Println("Running GoEpic challenge...")\n}\n`;
         setCode(defaultCode);
 
         // Fetch corresponding solutions by topic
@@ -107,7 +121,7 @@ const ProblemDetail = () => {
             <FiArrowLeft />
           </button>
           <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>
-            Problems / <strong style={{ color: 'var(--text-primary)' }}>{problem.title}</strong>
+            Problems / <strong style={{ color: 'var(--text-primary)' }}>{getProblemTitle(problem)}</strong>
           </span>
         </div>
 
@@ -117,10 +131,10 @@ const ProblemDetail = () => {
           <div className="pane">
             <div className="details-pane">
               <div className="problem-header">
-                <span className={`tag-difficulty ${problem.difficulty}`} style={{ marginBottom: '10px', display: 'inline-block' }}>
-                  {problem.difficulty}
+                <span className={`tag-difficulty ${normalizeDiff(problem.difficulty)}`} style={{ marginBottom: '10px', display: 'inline-block' }}>
+                  {normalizeDiff(problem.difficulty)}
                 </span>
-                <h1 className="problem-title">{problem.title}</h1>
+                <h1 className="problem-title">{getProblemTitle(problem)}</h1>
                 <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   Topic Focus: <strong style={{ color: 'var(--color-secondary)' }}>{problem.topic}</strong>
                 </div>
@@ -156,16 +170,16 @@ const ProblemDetail = () => {
                     solutions.map((sol, index) => (
                       <div key={sol._id} style={{ borderBottom: '1px solid hsla(215, 15%, 70%, 0.05)', paddingBottom: '16px' }}>
                         <h4 style={{ color: 'var(--color-secondary)', fontSize: '1rem', marginBottom: '8px' }}>
-                          Solution #{index + 1} ({sol.title})
+                          Solution #{index + 1}
                         </h4>
                         <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '8px' }}>
-                          Source: <strong>{sol.source}</strong> | Difficulty: <strong>{sol.difficulty}</strong>
+                          Source: <strong>{sol.dataset_source || sol.source || 'N/A'}</strong> | Difficulty: <strong>{normalizeDiff(sol.difficulty)}</strong>
                         </p>
                         <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '10px', background: 'rgba(0,0,0,0.1)', padding: '10px', borderRadius: '6px' }}>
-                          {sol.explanation}
+                          {sol.instruction || sol.explanation || 'No description available.'}
                         </div>
                         <pre className="solution-code-view">
-                          <code>{sol.code}</code>
+                          <code>{sol.output || sol.code || 'No code available.'}</code>
                         </pre>
                       </div>
                     ))

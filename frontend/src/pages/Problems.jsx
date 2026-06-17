@@ -2,8 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import api from '../services/api';
-import { FiSearch, FiEye, FiActivity } from 'react-icons/fi';
+import { FiSearch, FiEye, FiActivity, FiArrowRight } from 'react-icons/fi';
 import '../styles/Problems.css';
+
+// Normalize raw difficulty values from MongoDB dataset collection
+const normalizeDifficulty = (d) => {
+  if (!d) return 'medium';
+  const v = d.toLowerCase();
+  if (v === 'easy' || v === 'beginner') return 'easy';
+  if (v === 'medium' || v === 'intermediate') return 'medium';
+  if (v === 'advanced' || v === 'hard' || v === 'difficult') return 'advanced';
+  return 'medium';
+};
+
+const getProblemTitle = (problem) => {
+  const instr = problem?.instruction || '';
+  return instr.length > 70 ? instr.substring(0, 70) + '...' : instr || 'Untitled Problem';
+};
 
 const Problems = () => {
   const navigate = useNavigate();
@@ -123,7 +138,7 @@ const Problems = () => {
 
         {/* Filters Container */}
         <div className="filters-bar">
-          <div className="filters-left">
+          <div className="filters-left" style={{ flexWrap: 'wrap' }}>
             <form className="filter-input-wrapper" onSubmit={handleSearchSubmit}>
               <FiSearch className="filter-search-icon" />
               <input 
@@ -136,17 +151,21 @@ const Problems = () => {
 
             <select 
               className="filter-select"
+              style={{ flex: '1 1 min(100%, 200px)' }}
               value={difficultyParam}
               onChange={(e) => updateFilters({ difficulty: e.target.value })}
             >
               <option value="">All Difficulties</option>
-              <option value="easy">Easy</option>
+              <option value="easy">Easy / Beginner</option>
+              <option value="beginner">Beginner</option>
               <option value="medium">Medium</option>
-              <option value="advanced">Advanced</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced / Hard</option>
             </select>
 
             <select 
               className="filter-select"
+              style={{ flex: '1 1 min(100%, 200px)' }}
               value={topicParam}
               onChange={(e) => updateFilters({ topic: e.target.value })}
             >
@@ -187,34 +206,39 @@ const Problems = () => {
           </div>
         ) : (
           <>
-            <div className="problems-grid">
+            <div className="problems-grid responsive-grid">
               {problems.length > 0 ? (
                 problems.map((problem, index) => {
                   const probNumber = (pageParam - 1) * limit + index + 1;
                   return (
                     <div 
                       key={problem._id} 
-                      className="glass-card problem-card glass-card-hover"
+                      className="glass-card problem-card"
                       onClick={() => handleCardClick(problem._id)}
                     >
-                      <div className="problem-card-info">
+                      <div className="flex justify-between items-center mb-4">
                         <span className="problem-num">#{probNumber.toString().padStart(3, '0')}</span>
-                        <div className="problem-main">
-                          <span className="problem-title-text">{problem.title}</span>
-                          <div className="problem-meta-row">
-                            <span className={`tag-difficulty ${problem.difficulty}`}>
-                              {problem.difficulty}
-                            </span>
-                            <span>Category: <strong style={{ color: 'var(--text-secondary)' }}>{problem.topic}</strong></span>
-                          </div>
-                        </div>
+                        <span className={`tag-difficulty ${normalizeDifficulty(problem.difficulty)}`}>
+                          {normalizeDifficulty(problem.difficulty)}
+                        </span>
                       </div>
                       
-                      <div className="problem-stats-row">
-                        <div className="problem-stat">
-                          <FiEye />
-                          <span>{problem.views || 0}</span>
-                        </div>
+                      <div className="flex-1 mb-4">
+                        <h3 className="problem-title-text mb-2 line-clamp-3 text-sm font-semibold" style={{ minHeight: '48px' }}>
+                          {getProblemTitle(problem)}
+                        </h3>
+                        <p className="text-xs text-light-muted dark:text-dark-muted font-medium">
+                          Category: <strong style={{ color: 'var(--color-primary)' }}>{problem.topic}</strong>
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-center justify-between pt-3 border-t border-brand-lightBorder dark:border-brand-darkBorder text-xs text-light-muted dark:text-dark-muted font-semibold">
+                        <span className="flex items-center gap-1.5">
+                          <FiEye /> {problem.views || 0} views
+                        </span>
+                        <span className="text-brand-lightSecondary dark:text-brand-darkSecondary hover:underline flex items-center gap-1">
+                          Solve <FiArrowRight />
+                        </span>
                       </div>
                     </div>
                   );

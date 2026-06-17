@@ -2,13 +2,13 @@
 
 .workspace {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.2fr;
   gap: 24px;
-  height: calc(100vh - 160px);
-  min-height: 500px;
+  height: calc(100vh - 170px);
+  min-height: 550px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .workspace {
     grid-template-columns: 1fr;
     height: auto;
@@ -25,10 +25,13 @@
 /* Left Pane Details card */
 .details-pane {
   background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: var(--border-glow);
   border-radius: var(--radius-lg);
   padding: 32px;
   overflow-y: auto;
+  height: 100%;
   box-shadow: var(--glass-shadow);
 }
 
@@ -39,29 +42,35 @@
 }
 
 .problem-title {
+  font-family: var(--font-title);
   font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
   margin-bottom: 12px;
+  letter-spacing: -0.02em;
 }
 
 .instruction-text {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
   white-space: pre-wrap;
-  background: rgba(16, 18, 27, 0.2);
-  padding: 20px;
+  background: var(--bg-input);
+  padding: 20px 24px;
   border-radius: var(--radius-md);
-  border: 1px solid hsla(215, 15%, 70%, 0.02);
+  border: 1px solid var(--border-color);
 }
 
 /* Right Pane Editor card */
 .editor-pane {
-  background: hsl(233, 24%, 6%);
-  border: var(--border-glow);
+  background: #090A0F;
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   box-shadow: var(--glass-shadow);
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 .editor-header {
@@ -69,18 +78,22 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
-  background: hsl(233, 24%, 4%);
-  border-bottom: var(--border-glow);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: #0D0E14;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .editor-filename {
   font-family: var(--font-code);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.editor-filename svg {
+  color: var(--color-primary);
 }
 
 .editor-actions {
@@ -95,6 +108,7 @@
   position: relative;
   overflow: hidden;
   display: flex;
+  background: #090A0F;
 }
 
 .code-textarea {
@@ -103,9 +117,9 @@
   border: none;
   resize: none;
   font-family: var(--font-code);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #E2E8F0;
   padding: 24px;
   outline: none;
   tab-size: 4;
@@ -119,18 +133,19 @@
 
 /* Terminal Console section */
 .terminal-console {
-  background: hsl(233, 24%, 3%);
-  border-top: var(--border-glow);
-  padding: 16px 24px;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  max-height: 180px;
+  background: #06070A;
+  border-top: 1px solid var(--border-color);
+  padding: 18px 24px;
+  max-height: 200px;
+  min-height: 120px;
   overflow-y: auto;
 }
 
 .terminal-header {
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--text-muted);
   margin-bottom: 8px;
   display: flex;
@@ -138,27 +153,34 @@
   gap: 6px;
 }
 
+.terminal-header svg {
+  color: var(--color-secondary);
+}
+
 .terminal-output {
   font-family: var(--font-code);
-  font-size: 0.85rem;
-  color: hsl(145, 80%, 45%);
+  font-size: 0.8rem;
+  color: #34D399;
+  line-height: 1.5;
+  white-space: pre-wrap;
 }
 
 .terminal-output.error {
-  color: hsl(343, 90%, 65%);
+  color: #F87171;
 }
 
 .solution-code-view {
   font-family: var(--font-code);
-  font-size: 0.9rem;
-  background: hsl(233, 24%, 3%);
-  padding: 16px;
+  font-size: 0.85rem;
+  background: #090A0F;
+  padding: 20px;
   border-radius: var(--radius-md);
-  border: var(--border-glow);
-  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  color: #E2E8F0;
   overflow-x: auto;
   white-space: pre;
   margin-top: 16px;
+  line-height: 1.5;
 }
 
 /* Detail workspace Tabs */
@@ -172,21 +194,23 @@
 
 .workspace-tab {
   background: transparent;
-  border: none;
-  color: var(--text-muted);
+  border: 1px solid transparent;
+  color: var(--text-secondary);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
 }
 
 .workspace-tab:hover {
   color: var(--text-primary);
+  background: var(--bg-input);
 }
 
 .workspace-tab.active {
   background: var(--color-primary-glow);
   color: var(--color-primary);
+  border-color: rgba(99, 102, 241, 0.15);
 }

@@ -5,16 +5,16 @@
 }
 
 .datasets-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 8px;
 }
 
 /* Datasets Grid */
 .datasets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 24px;
   margin-bottom: 32px;
 }
 
@@ -23,13 +23,21 @@
   flex-direction: column;
   gap: 16px;
   cursor: pointer;
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--border-glow);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  min-height: 320px;
+  overflow: hidden;
   transition: all var(--transition-normal);
 }
 
 .dataset-card:hover {
   transform: translateY(-4px);
-  border-color: hsla(190, 90%, 50%, 0.3);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 20px var(--color-secondary-glow);
+  border-color: var(--color-primary-glow);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12), var(--shadow-glow);
 }
 
 .dataset-card-top {
@@ -42,13 +50,13 @@
 .dataset-source-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: var(--color-secondary-glow);
-  color: var(--color-secondary);
-  border: 1px solid hsla(190, 90%, 50%, 0.2);
-  border-radius: var(--radius-sm);
-  font-size: 0.8rem;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--color-primary-glow);
+  color: var(--color-primary);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -59,11 +67,13 @@
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 6px;
+  font-family: var(--font-title);
+  letter-spacing: -0.01em;
 }
 
 .dataset-description {
   font-size: 0.88rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
@@ -72,51 +82,59 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 16px;
-  border-top: 1px solid hsla(215, 15%, 70%, 0.05);
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
 }
 
 .dataset-problems-count {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
+  gap: 6px;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .dataset-problems-count span.count-num {
   font-family: var(--font-title);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
+  font-weight: 800;
   color: var(--color-primary);
 }
 
 .dataset-view-btn {
-  font-size: 0.82rem;
-  padding: 6px 14px;
+  font-size: 0.75rem;
+  padding: 6px 12px;
   color: var(--color-secondary);
   background: var(--color-secondary-glow);
-  border: 1px solid hsla(190, 90%, 50%, 0.15);
-  border-radius: var(--radius-sm);
+  border: 1px solid rgba(236, 72, 153, 0.15);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-family: var(--font-primary);
-  font-weight: 600;
-  transition: all var(--transition-fast);
+  font-weight: 700;
+  transition: all var(--transition-normal);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .dataset-view-btn:hover {
-  background: hsla(190, 90%, 50%, 0.25);
+  background: var(--color-secondary);
+  color: #FFFFFF;
 }
 
 /* Summary Banner */
 .datasets-summary-bar {
   display: flex;
-  gap: 24px;
+  gap: 40px;
   margin-bottom: 32px;
-  padding: 20px 28px;
+  padding: 20px 32px;
   background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: var(--border-glow);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   flex-wrap: wrap;
+  box-shadow: var(--glass-shadow);
 }
 
 .summary-stat {
@@ -127,21 +145,17 @@
 
 .summary-stat-value {
   font-family: var(--font-title);
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.8rem;
+  font-weight: 800;
   color: var(--text-primary);
   line-height: 1;
 }
 
 .summary-stat-label {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
-@media (max-width: 768px) {
-  .datasets-grid {
-    grid-template-columns: 1fr;
-  }
-}
