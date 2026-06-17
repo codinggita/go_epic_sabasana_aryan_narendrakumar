@@ -12,12 +12,14 @@ import Solutions from './pages/Solutions';
 import Datasets from './pages/Datasets';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
+import { AuthProvider } from './context/AuthContext';
 import './App.css';
 
 function App() {
   return (
-    <Router>
-      <div className="app-shell" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <AuthProvider>
+      <Router>
+        <div className="app-shell" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -40,6 +42,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    </AuthProvider>
   );
 }
 
